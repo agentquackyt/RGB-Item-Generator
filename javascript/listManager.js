@@ -153,8 +153,8 @@ async function saveLoreToCloud() {
     });
 
     if (response.ok) {
-      const  key = await response.headers.get('location');;
-      const parsedURL = `${key}`;
+      const  parsedURL = await response.headers.get('location');
+      console.log(parsedURL);
       navigator.clipboard.writeText(parsedURL);
 
       window.alert("Copy URL: "+parsedURL); 
