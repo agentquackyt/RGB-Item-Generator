@@ -153,8 +153,8 @@ async function saveLoreToCloud() {
     });
 
     if (response.ok) {
-      const  key = await response.json();
-      const parsedURL = `https://jsonblob.com/api/jsonBlob/${key}`;
+      const  key = await response.headers.get('Location');;
+      const parsedURL = `${key}`;
       navigator.clipboard.writeText(parsedURL);
 
       window.alert("Copy URL: "+parsedURL); 
