@@ -134,35 +134,6 @@ async function saveLoreToJSON() {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-    /*
-    const token = "a3cc0c4e64126007eaa995df2bf85b247d0264acaa05cb23c2512faaaecffe17296f92fb72e36525d012d05c017bd7d930975e4cd224a4f2f5d717d3edcf77e8";
-
-    const header = new Headers();
-    header.append('Authorization', `Bearer ${token}`);
-    header.append('content-type', 'application/json');
-/*
-    const response = await fetch('https://hastebin.com/documents', {
-      method: 'POST',
-      body: jsonOutput,
-      headers: header
-    });
-*//*
-    const response = await fetch('https://hastebin.de/', {
-      method: 'POST',
-      body: jsonOutput
-    });
-
-    if (response.ok) {
-      const { key } = await response.json();
-      const parsedURL = `https://hastebin.com/documents/${key}`;
-      navigator.clipboard.writeText(parsedURL);
-
-      window.alert("Copy URL: "+parsedURL); 
-    } else {
-      throw new Error(
-        `Could not connect to https://hastebin.com/documents (status: ${response.status})`
-      );
-    }          */
 } 
 
 
