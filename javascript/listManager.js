@@ -148,8 +148,11 @@ async function saveLoreToCloud() {
     var jsonOutput = JSON.stringify(lore, null, 2);
 
     const response = await fetch('https://jsonblob.com/api/jsonBlob', {
-      method: 'POST',
-      body: jsonOutput
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonOutput
     });
 
       const  parsedURL = await response.headers.get('location');
