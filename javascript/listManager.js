@@ -125,7 +125,7 @@ async function saveLoreToCloud() {
         let temp = loreList[i];                         
         lore.push(temp[0]+temp[1]+temp[2]);                         
     }                         
-    var jsonOutput = JSON.stringify(lore);
+    var jsonOutput = JSON.stringify(lore, null, 2);
     
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonOutput));
