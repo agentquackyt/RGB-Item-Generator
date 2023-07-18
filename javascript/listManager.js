@@ -117,7 +117,7 @@ function saveToHB() {
     window.open("https://tool.horstblocks.de/uquery.php?data=" + base64EncodeUnicode(myJSON), 'myWindow');                         
 }   
 
-async function saveLoreToCloud() {                                           
+async function saveLoreToJSON() {                                           
     var loreList = list.lore;                         
     var lore = [];                         
 
@@ -163,6 +163,35 @@ async function saveLoreToCloud() {
         `Could not connect to https://hastebin.com/documents (status: ${response.status})`
       );
     }          */
+} 
+
+
+async function saveLoreToCloud() {                                           
+    var loreList = list.lore;                         
+    var lore = [];                         
+
+    for (let i = 0; i < loreList.length; i++) {                         
+        let temp = loreList[i];                         
+        lore.push(temp[0]+temp[1]+temp[2]);                         
+    }                         
+    var jsonOutput = JSON.stringify(lore, null, 2);
+
+    const response = await fetch('https://jsonblob.com/api/jsonBlob', {
+      method: 'POST',
+      body: jsonOutput
+    });
+
+    if (response.ok) {
+      const  key = await response.json();
+      const parsedURL = `https://jsonblob.com/api/jsonBlob/${key}`;
+      navigator.clipboard.writeText(parsedURL);
+
+      window.alert("Copy URL: "+parsedURL); 
+    } else {
+      throw new Error(
+        `Could not connect to https://hastebin.com/documents (status: ${response.status})`
+      );
+    }          
 } 
 
 // edit function                         
