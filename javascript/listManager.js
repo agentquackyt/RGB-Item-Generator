@@ -152,17 +152,11 @@ async function saveLoreToCloud() {
       body: jsonOutput
     });
 
-    if (response.ok) {
       const  parsedURL = await response.headers.get('location');
       console.log(parsedURL);
       navigator.clipboard.writeText(parsedURL);
 
-      window.alert("Copy URL: "+parsedURL); 
-    } else {
-      throw new Error(
-        `Could not connect to https://hastebin.com/documents (status: ${response.status})`
-      );
-    }          
+      window.alert("Copy URL: "+parsedURL);       
 } 
 
 // edit function                         
