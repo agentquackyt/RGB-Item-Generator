@@ -156,10 +156,11 @@ async function saveLoreToCloud() {
     });
 
       const  parsedURL = await response.headers.get('location');
-      console.log(parsedURL);
-      navigator.clipboard.writeText(parsedURL);
+      const updatedURL = parsedURL.replace(/^http:\/\//i, 'https://');
+      console.log(updatedURL);
+      navigator.clipboard.writeText(updatedURL);
 
-      window.alert("Copy URL: "+parsedURL);       
+      window.alert("Copy URL: "+updatedURL);          
 } 
 
 // edit function                         
