@@ -1,26 +1,16 @@
 const editList = document.getElementById("editList");
 const outputList = document.getElementById("outputList");
 
-let list = {
-    displayname: {
-        display: ["&#084cfbt&#3f84fce&#76bbfcs&#adf3fdt", " ", "&#084cfbt&#3f84fce&#76bbfcs&#adf3fdt"],
-        data: [
-            {colors: ["#000", "#000"], text: "", bold: false, italic: false},
-            {colors: ["#000", "#000"], text: "", bold: false, italic: false},
-            {colors: ["#000", "#000"], text: "", bold: false, italic: false}
-        ]
-    },    
-    lore: [
-    ],
-    data: [
-
-    ]
+let list = { 
+    lore: [],
+    data: [],
+    preconfig_colors: []
 }
 
 function newLine() {
     list.lore.push(["", "", ""]);
     list.data.push([{colors: ["#000", "#000"], text: "", bold: false, italic: false},{colors: ["#000", "#000"], text: "", bold: false, italic: false},{colors: ["#000", "#000"], text: "", bold: false, italic: false}]);
-    editList.innerHTML = editList.innerHTML + "<li class='buttonsList'>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 0)'>Edit lore "+(list.lore.length-1)+", before</button>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 1)'>Edit lore "+(list.lore.length-1)+"</button>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 2)'>Edit lore "+(list.lore.length-1)+", after</button>"+"</li><br>";
+    editList.innerHTML = editList.innerHTML + "<li class='buttonsList'>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 0)'>Edit before</button>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 1)'>Edit lore "+(list.lore.length-1)+"</button>"+"<button class='menue-button' onclick='editLore("+(list.lore.length-1)+", 2)'>Edit after</button>"+"</li><br>";
     outputList.innerHTML = outputList.innerHTML + "<li class='resultList'><span id='text_"+(list.lore.length-1)+"_0'></span><span id='text_"+(list.lore.length-1)+"_1'></span><span id='text_"+(list.lore.length-1)+"_2'></span></li>";
     console.log(list)
 }
@@ -35,7 +25,63 @@ function base64EncodeUnicode(str) {
     return btoa(utf8Bytes);
 }
 
+const loadFromJSON = () => {
+    let file = document.getElementById("project_file_upload").files[0];
+    if(!file) return;
+    list = { 
+        lore: [],
+        data: [],
+        preconfig_colors: []
+    };
+    // read the file
+    var reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = function (evt) {
+        // get the file output
+        toggleIcons('projectLoadScreen');
+        document.getElementById("editList").innerHTML = "";
+        document.getElementById("outputList").innerHTML = "";
+        setupFromFile(JSON.parse(evt.target.result));
+        return;
+    }
+}     
+const setupFromFile = (json_string) => {
+    console.log(json_string)
+    console.log(json_string.data.length);
+    for (let i = 0; i < json_string.data.length; i++) {
+        newLine(); 
+        const element = json_string.data[i];
+        console.log(json_string.data[i]);
+        list.data[i] = element;
+        editLore(i,0);
+        update();
+        editLore(i,1);
+        update();
+        editLore(i,2);
+        update();
+    }
+    console.log(list)
+    editLore(0,1);
+    
+    for (let i = 1; i < json_string.preconfig_colors.length+1; i++) {
+        if(i>=colorIndex) addColor();
+        const element = json_string.preconfig_colors[i-1];
+        console.log(element)
+        document.getElementById("color_per_"+(i)+"_1").value = element[0];
+        document.getElementById("color_per_"+(i)+"_2").value = element[1];
+        list.preconfig_colors.push(element);
+    }
+    return;
+}
 function saveToJSON() {
+  let color_config = [];
+  for (let i = 1; i < colorIndex; i++) {
+    const color_set = [];
+    color_set.push(document.getElementById("color_per_"+(i)+"_1").value);
+    color_set.push(document.getElementById("color_per_"+(i)+"_2").value);
+    color_config.push(color_set);
+  }
+  list.preconfig_colors = color_config;
   var dataJSON = JSON.stringify(list, null, "\t");
 
   var element = document.createElement('a');
@@ -48,56 +94,7 @@ function saveToJSON() {
   element.click();
 
   document.body.removeChild(element);
-}                         
-
-function saveToCommandFile() {
-    let exportText = "";
-    for (let i = 0; i < list.displayname.display.length; i++) {
-        const item = list.displayname.display;
-        if (item[i].length < 256-14) 
-        {
-            exportText = exportText + "/jitem setdisplayname " + item[i]
-        } else {
-            exportText = exportText + "/jitem addtodisplayname " + item[i].slice(0, 256-20);
-            exportText = exportText + "/jitem addtodisplayname " + item[i].slice(256-21);
-        };
-    }
-
-    for (let i = 0; i < list.lore.length; i++) {
-        const item = list.lore[i];
-        if (item[0].length < 256-14) 
-        {
-            exportText = exportText + "/jitem addlore " + item[0] + " \r\n"
-        } else {
-            exportText = exportText + "/jitem addlore " +item[0].slice(0, 256-20) + " \r\n"
-            exportText = exportText + "/jitem addlore " +item[0].slice(256-21) + " \r\n"
-        };
-
-        if (item[1].length < 256-14) 
-        {
-            exportText = exportText + "/jitem addtolore " + i + " " +item[1] + " \r\n"
-        } else {
-            exportText = exportText + "/jitem addtolore " + i + " " +item[1].slice(0, 256-20) + " \r\n"
-            exportText = exportText + "/jitem addtolore " + i + " " +item[1].slice(256-21) + " \r\n"
-        };
-
-        if (item[1].length < 256-14) 
-        {
-            exportText = exportText + "/jitem addtolore " + i + " " + item[2] + " \r\n"
-        } else {
-            exportText = exportText + "/jitem addtolore " + i + " " + item[2].slice(0, 256-20) + " \r\n"
-            exportText = exportText + "/jitem addtolore " + i + " " + item[2].slice(256-21) + " \r\n"
-        };
-    }
-
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportText));
-    element.setAttribute('download', "item_command.txt");
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  }         
+}                               
 
 function saveToHB() {                         
     var displayname = list.displayname[0] + list.displayname[1] + list.displayname[2];                         
@@ -155,12 +152,11 @@ async function saveLoreToCloud() {
         body: jsonOutput
     });
 
-      const  parsedURL = await response.headers.get('location');
-      const updatedURL = parsedURL.replace(/^http:\/\//i, 'https://');
-      console.log(updatedURL);
-      navigator.clipboard.writeText(updatedURL);
-
-      window.alert("Copy URL: "+updatedURL);          
+    const  parsedURL = await response.headers.get('location');
+    const updatedURL = parsedURL.replace(/^http:\/\//i, 'https://');
+    console.log(updatedURL);
+    navigator.clipboard.writeText(updatedURL);
+    window.alert("Copy URL: "+updatedURL);          
 } 
 
 // edit function                         
@@ -190,7 +186,7 @@ function editLore(lineNR, index) {
 
     lineNrOfText= lineNR;
     indexOfText = index;
-
+    document.getElementById("hide-to-select").style.display = "block";
     textInfo.innerText = "Now editing line " + lineNR + ", part " + index;
     update();
 }
@@ -255,9 +251,18 @@ italic.addEventListener("change", (e) => {
 bold.addEventListener("change", (e) => {
     update();
 })
+const toggleIcons = (id) => document.getElementById(id).style.display != "none" ? document.getElementById(id).style.display = "none" : document.getElementById(id).style.display = "block";
 
+let colorIndex = 3;
+const addColor = () => {
+    let wrapper = document.getElementById("colorContainer");
+    let divElement = document.createElement("div");
+    divElement.innerHTML = "<div><input type='color' name='color_per_1' id='color_per_"+colorIndex+"_1'><input type='color' name='color_per_2' id='color_per_"+colorIndex+"_2'><button onclick='setPersistentColor("+colorIndex+")'>Set as Colors</button></div>";
+    wrapper.appendChild(divElement);
+    colorIndex++;
+}
 
-function addIcon(icon) {
+const addIcon = (icon) => {
     let pos = getCaretPosition(textInput);
     console.log(pos +" icon:" +icon)
     textInput.value = textInput.value + icon;

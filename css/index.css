@@ -1,0 +1,121 @@
+@font-face {
+  font-family: "minecraft";
+  src: url('minecraft.otf');
+}
+
+span {
+  font-size: large;
+  font-family: 'minecraft';
+}
+
+:root {
+  --background-main: #1f1f1f;
+  --background-content: #2d2f31;
+  --content-hover: #004a77;
+  --button-click: #005d97;
+  --button-hover: #393c3c;
+  --text-color: #c4c7c5;
+  --text-color-hover: #c2e7ff;
+}
+/* Loren Liste */
+.buttonsList, #editList {
+  list-style: none;
+  padding-left: 0px ;
+  max-height: 75vh;
+  overflow: scroll;
+}
+.menue-button, button {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin: 0px 2.5px;
+  background-color: var(--background-main);
+  color: var(--text-color);
+}
+
+.menue-button-add {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin: 0px 2.5px;
+  background-color: var(--background-main);
+  padding-top: 8px;
+  color: var(--text-color);
+}
+.menue-button:hover,.menue-button-add:hover, button:hover, input[type=file]::file-selector-button:hover {
+  background-color: var(--content-hover);
+  color: var(--text-color-hover);
+}
+.menue-button:active,.menue-button-add:active, button:active, input[type=file]::file-selector-button:hover {
+  background-color: var(--button-click);
+  color: var(--text-color-hover);
+}
+
+input[type=text] {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--background-main);
+  color: var(--text-color);
+  border: none;
+  margin: 2.5px; 
+}
+
+input[type=color] {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--background-main);
+  color: var(--text-color);
+  border: none;
+  margin: 2.5px; 
+}
+
+label {
+  font-size: 16px;
+  position: relative;
+  margin: 2.5px; 
+}
+
+input[type=checkbox] { width: auto }
+
+#lore {
+  font-size: 20px;
+  font-family: 'minecraft';
+}
+
+#outputList {
+  list-style: none;
+}
+
+.emoteDiv {
+  font-weight: 400;
+  font-size: larger;
+  background-color: var(--background-main);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#colorContainer div input[type=color] {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--background-content);
+  color: var(--text-color);
+  border: none;
+  margin: 2.5px; 
+}
+
+
+input[type=file]::file-selector-button {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin: 2.5px;
+  margin-right: 15px;
+  background-color: var(--background-main);
+  padding-top: 8px;
+  color: var(--text-color);
+}
