@@ -22,8 +22,15 @@ span {
   list-style: none;
   padding-left: 0px ;
   max-height: 75vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
+.buttonsList {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
 .menue-button, button {
   font-size: 14px;
   padding: 10px;
