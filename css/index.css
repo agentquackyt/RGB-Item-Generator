@@ -3,6 +3,8 @@
   src: url('minecraft.otf');
 }
 
+*:hover {transition: .5s}
+
 span {
   font-size: large;
   font-family: 'minecraft';
