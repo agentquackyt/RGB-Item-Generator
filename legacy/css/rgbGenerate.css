@@ -1,0 +1,96 @@
+@font-face {
+    font-family: "minecraft";
+    src: url('minecraft.otf');
+}
+
+body {
+    background-color: rgb(57, 57, 57);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: White;
+}
+
+span {
+    font-size: large;
+    font-family: 'minecraft';
+}
+.resultList , #editList {
+    list-style: none;
+    padding: 0px;
+}
+
+.border-bottom {
+    padding-bottom: 10px;
+    border-bottom: 1px rgb(92, 92, 92) solid;
+}
+
+.username {
+    font-size: x-large;
+    font-family: 'minecraft';
+}
+
+#command {
+    font-size:medium;
+}
+
+input {
+    margin: 15px;
+    background-color: transparent;
+    color: whitesmoke;
+    border: 1px rgb(92, 92, 92) solid;
+    border-radius: 10px;
+    padding: 5px;
+    outline: none;
+}
+
+input:hover {
+    background-color: rgba(113, 113, 113, 0.558);
+    color: whitesmoke;
+}
+
+#emoteDiv {
+    font-weight: 400;
+    font-size: larger;
+    border: 1px rgb(92, 92, 92) solid;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+button {
+    margin: 5px;
+    background-color: transparent;
+    color: whitesmoke;
+    border: 1px rgb(92, 92, 92) solid;
+    border-radius: 10px;
+    padding: 7px 15px;
+    outline: none;
+}
+
+.menue-button {
+    margin: 2px;
+    background-color: transparent;
+    color: whitesmoke;
+    border: 1px rgb(92, 92, 92) solid;
+    border-radius: 10px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+button:hover {
+    background-color: rgba(65, 65, 65, 0.684);
+    color: whitesmoke;
+}
+
+#lore, #command {
+    position:relative;
+    overflow-wrap: break-word;
+    max-width: 700px;
+    min-width: 700px;
+}
+
+#command {border: 1px rgb(92, 92, 92) solid; padding: 10px}
+
+#info {
+    color: rgb(125, 125, 125);
+    font-size: .8em;
+}
