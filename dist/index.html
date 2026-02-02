@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Creator - MiniMessage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+<link rel="stylesheet" crossorigin href="./index-48k8mgy7.css"><script type="module" crossorigin src="./index-dsdj4qp2.js"></script></head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <h1>Item Creator <span class="badge">Bun + TS</span></h1>
+                <p>Modern MiniMessage Generator</p>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" id="btn-save-project" title="Save Project"><span class="material-icons">save</span></button>
+                <button class="action-btn" id="btn-load-project" title="Load Project"><span class="material-icons">folder_open</span></button>
+                <button class="action-btn" id="btn-copy-json" title="Copy JSON"><span class="material-icons">content_copy</span></button>
+                <button class="action-btn" id="btn-export-url" title="Export to URL"><span class="material-icons">link</span></button>
+                <input type="file" id="file-input" style="display: none" accept=".json">
+            </div>
+        </header>
+
+        <main>
+            <!-- Left Panel: Line Structure & Preview -->
+            <div class="preview-panel">
+                <section class="preview-group">
+                    <div class="section-header">
+                        <h2>Lines</h2>
+                        <div class="actions">
+                            <button id="add-line-btn" class="sm-btn" title="Add Line"><span class="material-icons">add</span></button>
+                            <button id="clear-all-btn" class="sm-btn danger" title="Clear All"><span class="material-icons">delete_sweep</span></button>
+                        </div>
+                    </div>
+                    <div id="lines-container" class="lines-container">
+                        <!-- Lines are rendered here -->
+                    </div>
+                </section>
+                
+                 <div style="margin-top: 1rem;">
+                    <h3>Live Output Preview</h3>
+                    <pre id="output-code" style="background:#111; color:#ddd; padding:0.5rem; overflow:auto; max-height: 200px; font-size: 0.8rem; border-radius: 4px;"></pre>
+                 </div>
+            </div>
+
+            <!-- Middle Panel: Segment Editor -->
+            <div class="controls-panel" id="editor-panel">
+                <div class="section-header">
+                    <h2>Segment Editor <span id="active-segment-label" class="badge-sub">None</span></h2>
+                    <div class="actions">
+                        <button id="add-segment-btn" class="sm-btn" disabled title="Add Segment"><span class="material-icons">add_box</span></button>
+                        <button id="delete-segment-btn" class="sm-btn danger" disabled title="Delete Segment"><span class="material-icons">delete</span></button>
+                    </div>
+                </div>
+
+                <div id="editor-controls" class="disabled-overlay">
+                    <section class="control-group">
+                        <h3>Content</h3>
+                        <div class="input-wrapper">
+                            <label for="text-input">Text</label>
+                            <input type="text" id="text-input" placeholder="Segment text...">
+                        </div>
+                    </section>
+
+                    <section class="control-group">
+                        <div class="section-header-small" style="display:flex; justify-content:space-between; align-items:center;">
+                            <h3>Colors</h3>
+                            <button id="add-color-btn" class="sm-btn" title="Add Color"><span class="material-icons">add_circle</span></button>
+                        </div>
+                        <div id="colors-list" class="colors-list">
+                            <!-- Dynamic colors here -->
+                        </div>
+                    </section>
+                    
+                    <section class="control-group">
+                        <h3>Decorations</h3>
+                        <div class="toggles-grid">
+                            <div class="toggle">
+                                <input type="checkbox" id="bold-check">
+                                <label for="bold-check" class="style-bold">Bold</label>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="italic-check">
+                                <label for="italic-check" class="style-italic">Italic</label>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="underline-check">
+                                <label for="underline-check" class="style-underline">Underline</label>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="strike-check">
+                                <label for="strike-check" class="style-strike">Strike</label>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="obfuscated-check">
+                                <label for="obfuscated-check" class="style-obfuscated">Obfuscated</label>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Right Panel: Saved Gradients & Icons -->
+            <div class="sidebar">
+                <section class="saved-gradients-section">
+                    <div class="section-header-small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.75rem;">
+                        <h2>Saved Gradients</h2>
+                        <div class="saved-gradients-actions">
+                            <button id="import-gradient-btn" class="sm-btn" title="Import Gradient"><span class="material-icons">upload</span></button>
+                            <button id="save-gradient-btn" class="sm-btn" title="Save Current Gradient" disabled><span class="material-icons">bookmark_add</span></button>
+                        </div>
+                    </div>
+                    <div id="saved-gradients-list" class="saved-gradients-list">
+                        <!-- Saved gradients appear here -->
+                    </div>
+                </section>
+                
+                <h2>Icons</h2>
+                <div id="icons-grid" class="icons-grid">
+                    <!-- Icons generated here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Gradient Import Modal -->
+    <div id="gradient-import-modal" class="modal hidden">
+        <div class="modal-backdrop" data-modal-close="true"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="gradient-import-title">
+            <div class="modal-header">
+                <h2 id="gradient-import-title">Import Gradient</h2>
+                <button id="gradient-import-close" class="sm-btn danger" title="Close">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <p class="modal-hint">Paste a gradient JSON like:</p>
+            <pre class="modal-example">{"version":4,"colors":[{"hex":"#FF5555","pos":0},{"hex":"#FFAA00","pos":16.666666666666668},{"hex":"#FFFF55","pos":33.333333333333336}]}</pre>
+
+            <label class="modal-label" for="gradient-import-input">Gradient JSON</label>
+            <textarea id="gradient-import-input" class="modal-textarea" spellcheck="false" placeholder='{"version":4,"colors":[{"hex":"#FF5555","pos":0}, ...]}'></textarea>
+
+            <div id="gradient-import-error" class="modal-error" style="display:none;"></div>
+
+            <div class="modal-preview-wrap">
+                <div class="modal-preview-title">Preview</div>
+                <div id="gradient-import-preview" class="gradient-preview"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button id="gradient-import-cancel" class="sm-btn" title="Cancel"><span class="material-icons">close</span></button>
+                <button id="gradient-import-confirm" class="action-btn" disabled title="Import"><span class="material-icons">download</span></button>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
