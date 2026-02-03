@@ -1,4 +1,4 @@
-import { StyleOptions } from './types';
+import type { StyleOptions } from './types';
 
 export function generateMiniMessage(text: string, options: StyleOptions): string {
     let output = "";
@@ -20,22 +20,22 @@ export function generateMiniMessage(text: string, options: StyleOptions): string
     }
 
     // 2. Decorations
-    if (options.isBold) output += "<bold>";
-    if (options.isItalic) output += "<italic>";
-    if (options.isUnderlined) output += "<underlined>";
-    if (options.isStrikethrough) output += "<strikethrough>";
-    if (options.isObfuscated) output += "<obfuscated>";
+    if (options.isBold) output += "<b>";
+    if (options.isItalic) output += "<i>";
+    if (options.isUnderlined) output += "<u>";
+    if (options.isStrikethrough) output += "<st>";
+    if (options.isObfuscated) output += "<obf>";
 
     // Content
     output += text;
 
     // Closing tags
     
-    if (options.isObfuscated) output += "</obfuscated>";
-    if (options.isStrikethrough) output += "</strikethrough>";
-    if (options.isUnderlined) output += "</underlined>";
-    if (options.isItalic) output += "</italic>";
-    if (options.isBold) output += "</bold>";
+    if (options.isObfuscated) output += "</obf>";
+    if (options.isStrikethrough) output += "</st>";
+    if (options.isUnderlined) output += "</u>";
+    if (options.isItalic) output += "</i>";
+    if (options.isBold) output += "</b>";
 
     if (colors.length > 1) {
         output += "</gradient>";
@@ -70,7 +70,7 @@ export function generatePreviewHTML(text: string, options: StyleOptions): string
         const rgbColors = colors.map(c => hex2rgb(c) || [255, 255, 255]);
         
         if (len === 1) {
-             const c = rgbColors[0];
+             const c = rgbColors[0] || [255, 255, 255];
              let style = `color: rgb(${c[0]},${c[1]},${c[2]});`;
              if (options.isBold) style += "font-weight: bold;";
              if (options.isItalic) style += "font-style: italic;";
@@ -95,12 +95,12 @@ export function generatePreviewHTML(text: string, options: StyleOptions): string
             
             const segmentT = pos - index; // 0..1 within the segment
             
-            const c1 = rgbColors[index];
-            const c2 = rgbColors[index + 1];
+            const c1 = rgbColors[index] ?? [255, 255, 255];
+            const c2 = rgbColors[index + 1] ?? [255, 255, 255];
             
-            const r = Math.round(c1[0] + (c2[0] - c1[0]) * segmentT);
-            const g = Math.round(c1[1] + (c2[1] - c1[1]) * segmentT);
-            const b = Math.round(c1[2] + (c2[2] - c1[2]) * segmentT);
+            const r = Math.round(c1[0]! + (c2[0]! - c1[0]!) * segmentT);
+            const g = Math.round(c1[1]! + (c2[1]! - c1[1]!) * segmentT);
+            const b = Math.round(c1[2]! + (c2[2]! - c1[2]!) * segmentT);
             
             let style = `color: rgb(${r},${g},${b});`;
             if (options.isBold) style += "font-weight: bold;";
@@ -121,8 +121,8 @@ export function generatePreviewHTML(text: string, options: StyleOptions): string
 function hex2rgb(hex: string): [number, number, number] | null {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? [
-        parseInt(result[1], 16),
-        parseInt(result[2], 16),
-        parseInt(result[3], 16)
+        parseInt(result[1]!, 16),
+        parseInt(result[2]!, 16),
+        parseInt(result[3]!, 16)
     ] : null;
 }

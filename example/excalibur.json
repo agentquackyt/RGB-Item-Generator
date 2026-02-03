@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "lines": [
+    {
+      "id": "ex-line-01",
+      "segments": [
+        {
+          "id": "ex-seg-01",
+          "text": "Excalibur",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ],
+            "isBold": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-02",
+      "segments": []
+    },
+    {
+      "id": "ex-line-03",
+      "segments": [
+        {
+          "id": "ex-seg-02",
+          "text": "╔══════════════════╕",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff",
+              "#ffd700"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-04",
+      "segments": [
+        {
+          "id": "ex-seg-03",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-04",
+          "text": "Sharpness X",
+          "style": {
+            "colors": [
+              "#80deea",
+              "#e0f7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-05",
+      "segments": [
+        {
+          "id": "ex-seg-05",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-06",
+          "text": "Smite X",
+          "style": {
+            "colors": [
+              "#80deea",
+              "#e0f7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-06",
+      "segments": [
+        {
+          "id": "ex-seg-07",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-08",
+          "text": "Unbreaking V",
+          "style": {
+            "colors": [
+              "#80deea",
+              "#e0f7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-07",
+      "segments": [
+        {
+          "id": "ex-seg-09",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-10",
+          "text": "Mending",
+          "style": {
+            "colors": [
+              "#80deea",
+              "#e0f7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-08",
+      "segments": [
+        {
+          "id": "ex-seg-11",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-09",
+      "segments": [
+        {
+          "id": "ex-seg-12",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-13",
+          "text": "Forged in the heart of Avalon,",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-10",
+      "segments": [
+        {
+          "id": "ex-seg-14",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-15",
+          "text": "this legendary blade glimmers",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-11",
+      "segments": [
+        {
+          "id": "ex-seg-16",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-17",
+          "text": "with a celestial radiance. Only",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-12",
+      "segments": [
+        {
+          "id": "ex-seg-18",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-19",
+          "text": "the rightful king may wield its",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-13",
+      "segments": [
+        {
+          "id": "ex-seg-20",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-21",
+          "text": "unmatched power to sever the",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-14",
+      "segments": [
+        {
+          "id": "ex-seg-22",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff"
+            ]
+          }
+        },
+        {
+          "id": "ex-seg-23",
+          "text": "shadows and restore justice.",
+          "style": {
+            "colors": [
+              "#ffbf00",
+              "#ffd700",
+              "#fff2cc",
+              "#ffd700",
+              "#ffbf00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ex-line-15",
+      "segments": [
+        {
+          "id": "ex-seg-24",
+          "text": "╚══════════════════╛",
+          "style": {
+            "colors": [
+              "#ffd700",
+              "#00d4ff",
+              "#ffd700"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

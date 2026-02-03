@@ -8,14 +8,16 @@ const state: {
     activeLineId: string | null;
     activeSegmentId: string | null;
     savedGradients: StyleOptions[];
-} = {
+    isCollapsed: boolean;
+} = { 
     project: {
         version: 1,
         lines: []
     },
     activeLineId: null,
     activeSegmentId: null,
-    savedGradients: []
+    savedGradients: [],
+    isCollapsed: false
 };
 
 let pendingImportedGradient: StyleOptions | null = null;
@@ -23,6 +25,21 @@ let pendingImportedGradient: StyleOptions | null = null;
 const SAVED_GRADIENTS_STORAGE_KEY = 'itemCreator.savedGradients.v1';
 
 // --- Helpers ---
+function showSnackbar(message: string) {
+    const x = document.getElementById("snackbar");
+    if(!x) return;
+    x.className = "show";
+    x.textContent = message;
+    
+    // Clear previous timeout if any? A simple way is to just let it run.
+    // Ideally we should manage the timeout.
+    
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
+    
+    // Allow click to dismiss
+    x.onclick = () => { x.className = x.className.replace("show", ""); };
+}
+
 function generateId(): string {
     return Math.random().toString(36).substr(2, 9);
 }
@@ -73,6 +90,13 @@ function normalizeStyleOptions(style: any): StyleOptions | null {
     };
 }
 
+function jsonReplacer(key: string, value: any) {
+    if (value === false && ['isBold', 'isItalic', 'isUnderlined', 'isStrikethrough', 'isObfuscated'].includes(key)) {
+        return undefined;
+    }
+    return value;
+}
+
 function loadSavedGradientsFromStorage() {
     try {
         const raw = localStorage.getItem(SAVED_GRADIENTS_STORAGE_KEY);
@@ -93,7 +117,7 @@ function loadSavedGradientsFromStorage() {
 
 function persistSavedGradientsToStorage() {
     try {
-        localStorage.setItem(SAVED_GRADIENTS_STORAGE_KEY, JSON.stringify(state.savedGradients));
+        localStorage.setItem(SAVED_GRADIENTS_STORAGE_KEY, JSON.stringify(state.savedGradients, jsonReplacer));
     } catch {
         // ignore quota or storage errors
     }
@@ -103,8 +127,43 @@ function persistSavedGradientsToStorage() {
 
 function renderLines() {
     const container = document.getElementById('lines-container');
+    const liveOutput = document.getElementById('live-output-container');
     if (!container) return;
     container.innerHTML = '';
+
+    if (state.isCollapsed) {
+        if (liveOutput) liveOutput.style.display = 'none';
+
+        const previewEl = document.createElement('div');
+        previewEl.style.width = 'unset';
+        previewEl.style.minHeight = '300px';
+        previewEl.style.backgroundColor = '#111';
+        previewEl.style.color = '#ddd';
+        previewEl.style.fontFamily = "'Minecraft', monospace";
+        previewEl.style.padding = '1rem';
+        previewEl.style.borderRadius = '4px';
+        previewEl.style.border = '1px solid #444';
+        previewEl.style.overflowY = 'auto';
+        previewEl.style.whiteSpace = 'pre-wrap';
+
+        state.project.lines.forEach(line => {
+            const lineDiv = document.createElement('div');
+            lineDiv.style.minHeight = '1.2em';
+            
+            line.segments.forEach(seg => {
+                const wrapper = document.createElement('span');
+                if(!seg.style.colors) seg.style.colors = ["#ffffff"];
+                wrapper.innerHTML = generatePreviewHTML(seg.text, seg.style);
+                lineDiv.appendChild(wrapper);
+            });
+            previewEl.appendChild(lineDiv);
+        });
+        
+        container.appendChild(previewEl);
+        return;
+    }
+
+    if (liveOutput) liveOutput.style.display = 'block';
 
     state.project.lines.forEach((line, index) => {
         const lineEl = document.createElement('div');
@@ -479,6 +538,48 @@ function deleteSavedGradient(index: number) {
     renderSavedGradients();
 }
 
+async function exportLine() {
+    if (!state.activeLineId) {
+        showSnackbar("No line selected");
+        return;
+    }
+    const line = state.project.lines.find(l => l.id === state.activeLineId);
+    if (!line) return;
+
+    const result = line.segments.map(s => {
+        if(!s.style.colors) s.style.colors = ["#ffffff"];
+        return generateMiniMessage(s.text, s.style);
+    }).join('');
+
+    try {
+        await navigator.clipboard.writeText(result);
+        showSnackbar("Line exported to clipboard!");
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+        showSnackbar("Failed to copy to clipboard");
+    }
+}
+
+async function exportSegment() {
+    if (!state.activeSegmentId) {
+        showSnackbar("No segment selected");
+        return;
+    }
+    const line = state.project.lines.find(l => l.id === state.activeLineId);
+    const seg = line?.segments.find(s => s.id === state.activeSegmentId);
+    if (!seg) return;
+
+    const result = generateMiniMessage(seg.text, seg.style);
+
+    try {
+        await navigator.clipboard.writeText(result);
+        showSnackbar("Segment exported to clipboard!");
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+        showSnackbar("Failed to copy to clipboard");
+    }
+}
+
 function parseImportedGradient(input: string): StyleOptions | null {
     const trimmed = input.trim();
     if (!trimmed) return null;
@@ -583,6 +684,7 @@ function importPendingGradient() {
     persistSavedGradientsToStorage();
     renderSavedGradients();
     closeGradientImportModal();
+    showSnackbar("Gradient imported successfully!");
 }
 
 function updateSegmentColor(index: number, value: string) {
@@ -676,14 +778,92 @@ function setCheck(id: string, checked: boolean) {
     if (el) el.checked = checked;
 }
 
+function initDragAndDrop() {
+    document.body.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        document.body.classList.add('drag-over');
+    });
+
+    document.body.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        document.body.classList.remove('drag-over');
+    });
+
+    document.body.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        document.body.classList.remove('drag-over');
+
+        const files = e.dataTransfer?.files;
+        if (files && files.length > 0) {
+            Array.from(files).forEach(file => {
+                if (file.name.toLowerCase().endsWith('.json')) {
+                    const reader = new FileReader();
+                    reader.onload = (evt) => {
+                        try {
+                            const data = evt.target?.result as string;
+                            const json = JSON.parse(data);
+                            if (json.lines && Array.isArray(json.lines)) {
+                                const id = generateId();
+                                sessionStorage.setItem(`pending_project_${id}`, data);
+                                const url = new URL(window.location.href);
+                                url.searchParams.set('load', id);
+                                window.open(url.toString(), '_blank');
+                            }
+                        } catch (err) {
+                            console.error("Failed to parse dropped JSON", err);
+                            showSnackbar("Error parsing dropped JSON file.");
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            });
+        }
+    });
+}
+
+function checkPendingLoad() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loadId = urlParams.get('load');
+    if (loadId) {
+        const data = sessionStorage.getItem(`pending_project_${loadId}`);
+        if (data) {
+            try {
+                const loaded = JSON.parse(data);
+                if (loaded.lines && Array.isArray(loaded.lines)) {
+                    state.project = loaded;
+                    // Reset active states
+                    state.activeLineId = null;
+                    state.activeSegmentId = null;
+                    showSnackbar("Project loaded successfully in new tab!");
+                }
+            } catch (e) {
+                console.error("Error loading pending project", e);
+            }
+            sessionStorage.removeItem(`pending_project_${loadId}`);
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    }
+}
+
 function initListeners() {
+    initDragAndDrop();
     document.getElementById('add-line-btn')?.addEventListener('click', addLine);
+    document.getElementById('collapse-lines-btn')?.addEventListener('click', () => {
+        state.isCollapsed = !state.isCollapsed;
+        renderLines();
+    });
     document.getElementById('clear-all-btn')?.addEventListener('click', clearAll);
     document.getElementById('add-segment-btn')?.addEventListener('click', addSegment);
     document.getElementById('delete-segment-btn')?.addEventListener('click', deleteSegment);
     document.getElementById('add-color-btn')?.addEventListener('click', addColor);
     document.getElementById('save-gradient-btn')?.addEventListener('click', saveCurrentGradient);
     document.getElementById('import-gradient-btn')?.addEventListener('click', openGradientImportModal);
+    document.getElementById('export-line-btn')?.addEventListener('click', exportLine);
+    document.getElementById('export-segment-btn')?.addEventListener('click', exportSegment);
 
     // Gradient import modal
     document.getElementById('gradient-import-close')?.addEventListener('click', closeGradientImportModal);
@@ -699,20 +879,21 @@ function initListeners() {
 
     // Export/Import
     document.getElementById('btn-save-project')?.addEventListener('click', () => {
-        const data = JSON.stringify(state.project, null, 2);
+        const data = JSON.stringify(state.project, jsonReplacer, 2);
         const blob = new Blob([data], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = 'project.json';
         a.click();
+        showSnackbar("Project saved!");
     });
     
     document.getElementById('btn-copy-json')?.addEventListener('click', () => {
          const output = document.getElementById('output-code');
          if(output) {
              navigator.clipboard.writeText(output.textContent || "");
-             alert("Copied to clipboard!");
+             showSnackbar("Copied JSON to clipboard!");
          }
     });
     
@@ -738,7 +919,7 @@ function initListeners() {
 
             let parsedURL = await response.headers.get('location');
             if (!parsedURL) {
-                alert("Failed to get URL from response");
+                showSnackbar("Failed to get URL from response");
                 return;
             }
             
@@ -751,11 +932,11 @@ function initListeners() {
             }
             
             console.log(parsedURL);
-            navigator.clipboard.writeText(parsedURL);
-            window.alert("Copy URL: " + parsedURL);
+            await navigator.clipboard.writeText(parsedURL);
+            showSnackbar("URL copied to clipboard!");
         } catch (error) {
             console.error('Export error:', error);
-            alert("Failed to export to URL. Check console for details.");
+            showSnackbar("Failed to export to URL");
         }
     });
 
@@ -780,11 +961,12 @@ function initListeners() {
                     renderLines();
                     renderEditor();
                     renderOutput();
+                    showSnackbar("Project loaded successfully!");
                 } else {
-                    alert("Invalid project file.");
+                    showSnackbar("Invalid project file.");
                 }
             } catch(err) {
-                alert("Error parsing JSON.");
+                showSnackbar("Error parsing JSON.");
             }
         };
         reader.readAsText(file);
@@ -796,13 +978,19 @@ function initListeners() {
     });
 
     // Toggles
-    const toggles = ['bold', 'italic', 'underline', 'strike', 'obfuscated'];
+    const toggles: { id: string, prop: keyof StyleOptions }[] = [
+        { id: 'bold', prop: 'isBold' },
+        { id: 'italic', prop: 'isItalic' },
+        { id: 'underline', prop: 'isUnderlined' },
+        { id: 'strike', prop: 'isStrikethrough' },
+        { id: 'obfuscated', prop: 'isObfuscated' }
+    ];
+
     toggles.forEach(t => {
-        document.getElementById(`${t}-check`)?.addEventListener('change', (e) => {
+        document.getElementById(`${t.id}-check`)?.addEventListener('change', (e) => {
              updateActiveSegment(s => {
-                 const key = `is${t.charAt(0).toUpperCase() + t.slice(1).replace('strike', 'Strikethrough')}` as keyof StyleOptions;
                  // @ts-ignore
-                 s.style[key] = (e.target as HTMLInputElement).checked;
+                 s.style[t.prop] = (e.target as HTMLInputElement).checked;
              });
         });
     });
@@ -821,6 +1009,7 @@ function clearAll() {
 
 // --- Init ---
 window.addEventListener('DOMContentLoaded', () => {
+    checkPendingLoad();
     loadSavedGradientsFromStorage();
     renderIcons();
     renderSavedGradients();

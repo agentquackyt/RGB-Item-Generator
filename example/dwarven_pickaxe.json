@@ -1,0 +1,427 @@
+{
+  "version": 1,
+  "lines": [
+    {
+      "id": "a1b2c3d4e",
+      "segments": [
+        {
+          "id": "f5g6h7i8j",
+          "text": "Dwarven Pickaxe",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ],
+            "isBold": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "k9l0m1n2o",
+      "segments": []
+    },
+    {
+      "id": "p3q4r5s6t",
+      "segments": [
+        {
+          "id": "u7v8w9x0y",
+          "text": "╔══════════════════╕",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4",
+              "#4773da"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "z1a2b3c4d",
+      "segments": [
+        {
+          "id": "e5f6g7h8i",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "j9k0l1m2n",
+          "text": "Dwarven Luck VII",
+          "style": {
+            "colors": [
+              "#699ce9",
+              "#fa5aea"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "o3p4q5r6s",
+      "segments": [
+        {
+          "id": "t7u8v9w0x",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "y1z2a3b4c",
+          "text": "Heroic Diligence VIII",
+          "style": {
+            "colors": [
+              "#699ce9",
+              "#fa5aea"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "d5e6f7g8h",
+      "segments": [
+        {
+          "id": "i9j0k1l2m",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "n3o4p5q6r",
+          "text": "Mystical Durability",
+          "style": {
+            "colors": [
+              "#699ce9",
+              "#fa5aea"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7t8u9v0w",
+      "segments": [
+        {
+          "id": "x1y2z3a4b",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "c5d6e7f8g",
+          "text": "Curse of Vanishing",
+          "style": {
+            "colors": [
+              "#699ce9",
+              "#fa5aea"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "h9i0j1k2l",
+      "segments": [
+        {
+          "id": "m3n4o5p6q",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "r7s8t9u0v",
+      "segments": [
+        {
+          "id": "w1x2y3z4a",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "b5c6d7e8f",
+          "text": "This wonder tool originates",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "g9h0i1j2k",
+      "segments": [
+        {
+          "id": "l3m4n5o6p",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "q7r8s9t0u",
+          "text": "from depths of secrets and",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "v1w2x3y4z",
+      "segments": [
+        {
+          "id": "a5b6c7d8e",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "f9g0h1i2j",
+          "text": "hidden fairytale forests,",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "k3l4m5n6o",
+      "segments": [
+        {
+          "id": "p7q8r9s0t",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "u1v2w3x4y",
+          "text": "where time always flies and",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "z5a6b7c8d",
+      "segments": [
+        {
+          "id": "e9f0g1h2i",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "j3k4l5m6n",
+          "text": "it is always spring. Built",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "o7p8q9r0s",
+      "segments": [
+        {
+          "id": "t1u2v3w4x",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "y5z6a7b8c",
+          "text": "by long forgotten dwarves,",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "d9e0f1g2h",
+      "segments": [
+        {
+          "id": "i3j4k5l6m",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "n7o8p9q0r",
+          "text": "the reason for this tool is",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s1t2u3v4w",
+      "segments": [
+        {
+          "id": "x5y6z7a8b",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "c9d0e1f2g",
+          "text": "still eternally hidden deep",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "h3i4j5k6l",
+      "segments": [
+        {
+          "id": "m7n8o9p0q",
+          "text": "║ ",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4"
+            ]
+          }
+        },
+        {
+          "id": "r1s2t3u4v",
+          "text": "these deep mystical woods.",
+          "style": {
+            "colors": [
+              "#41c7fa",
+              "#f089df",
+              "#f7bfee",
+              "#d558c0",
+              "#41c7fa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "w5x6y7z8a",
+      "segments": [
+        {
+          "id": "b9c0d1e2f",
+          "text": "╚══════════════════╛",
+          "style": {
+            "colors": [
+              "#4773da",
+              "#f836e4",
+              "#4773da"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
