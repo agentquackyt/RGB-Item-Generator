@@ -70,6 +70,8 @@
                                 class="material-icons">add_box</span></button>
                         <button id="delete-segment-btn" class="sm-btn danger" disabled title="Delete Segment"><span
                                 class="material-icons">delete</span></button>
+                        <button id="close-editor-btn" class="sm-btn danger modal-close-btn" title="Close Editor"><span
+                                class="material-icons">close</span></button>
                     </div>
                 </div>
 
@@ -82,15 +84,34 @@
                         </div>
                     </section>
 
-                    <section class="group">
-                        <div class="section-header-small"
-                            style="display:flex; justify-content:space-between; align-items:center;">
-                            <h3>Colors</h3>
-                            <button id="add-color-btn" class="sm-btn" title="Add Color"><span
-                                    class="material-icons">add_circle</span></button>
+                    <section class="group" id="colors-group">
+                        <div id="colors-view-default">
+                            <div class="section-header-small"
+                                style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3>Colors</h3>
+                                <div class="button-group">
+                                    <button id="show-gradients-btn" class="sm-btn mobile-only" title="Saved Gradients"><span
+                                            class="material-icons">auto_awesome</span></button>
+                                    <button id="save-gradient-btn-mobile" class="sm-btn mobile-only" title="Save Gradient"><span
+                                            class="material-icons">bookmark_add</span></button>
+                                    <button id="add-color-btn" class="sm-btn" title="Add Color"><span
+                                            class="material-icons">add_circle</span></button>
+                                </div>
+                            </div>
+                            <div id="colors-list" class="colors-list">
+                                <!-- Dynamic colors here -->
+                            </div>
                         </div>
-                        <div id="colors-list" class="colors-list">
-                            <!-- Dynamic colors here -->
+                        <div id="mobile-gradients-view" class="mobile-only hidden">
+                            <div class="section-header-small"
+                                style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3>Saved Gradients</h3>
+                                <button id="hide-gradients-btn" class="sm-btn" title="Back to Colors"><span
+                                        class="material-icons">arrow_back</span></button>
+                            </div>
+                            <div id="mobile-gradients-list" class="saved-gradients-list">
+                                <!-- Cloned gradients here -->
+                            </div>
                         </div>
                     </section>
 

@@ -239,14 +239,17 @@ function renderEditor() {
     const delSegBtn = document.getElementById('delete-segment-btn') as HTMLButtonElement;
     const addColorBtn = document.getElementById('add-color-btn') as HTMLButtonElement;
     const saveGradientBtn = document.getElementById('save-gradient-btn') as HTMLButtonElement;
+    const saveGradientBtnMobile = document.getElementById('save-gradient-btn-mobile') as HTMLButtonElement;
 
     if (!state.activeSegmentId) {
+        if (panel) panel.classList.remove('has-active-segment');
         if (controls) controls.classList.remove('enabled');
         if (label) label.textContent = "None";
         if (addSegBtn) addSegBtn.disabled = !state.activeLineId; 
         if (delSegBtn) delSegBtn.disabled = true;
         if (addColorBtn) addColorBtn.disabled = true;
         if (saveGradientBtn) saveGradientBtn.disabled = true;
+        if (saveGradientBtnMobile) saveGradientBtnMobile.disabled = true;
         return;
     }
 
@@ -256,16 +259,22 @@ function renderEditor() {
     const segment = line.segments.find(s => s.id === state.activeSegmentId);
     if (!segment) return;
 
+    if (panel) panel.classList.add('has-active-segment');
     if (controls) controls.classList.add('enabled');
     if (label) label.textContent = "Active";
     if (addSegBtn) addSegBtn.disabled = false;
     if (delSegBtn) delSegBtn.disabled = false;
     if (addColorBtn) addColorBtn.disabled = false;
     if (saveGradientBtn) saveGradientBtn.disabled = false;
+    if (saveGradientBtnMobile) saveGradientBtnMobile.disabled = false;
 
     // Populate Inputs
     setInput('text-input', segment.text);
     
+    // Reset mobile gradients view when switching segments
+    document.getElementById('colors-view-default')?.classList.remove('hidden');
+    document.getElementById('mobile-gradients-view')?.classList.add('hidden');
+
     // Render Colors List
     const colorsList = document.getElementById('colors-list');
     if (colorsList) {
@@ -354,7 +363,12 @@ function renderIcons() {
 }
 
 function renderSavedGradients() {
-    const container = document.getElementById('saved-gradients-list');
+    renderGradientsToContainer('saved-gradients-list');
+    renderGradientsToContainer('mobile-gradients-list');
+}
+
+function renderGradientsToContainer(containerId: string) {
+    const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = '';
     
@@ -403,6 +417,10 @@ function renderSavedGradients() {
         
         container.appendChild(item);
     });
+}
+
+function renderMobileGradients() {
+    renderGradientsToContainer('mobile-gradients-list');
 }
 
 
@@ -530,6 +548,10 @@ function loadGradient(index: number) {
     renderLines();
     renderEditor();
     renderOutput();
+
+    // On mobile, hide gradients view after selection
+    document.getElementById('colors-view-default')?.classList.remove('hidden');
+    document.getElementById('mobile-gradients-view')?.classList.add('hidden');
 }
 
 function deleteSavedGradient(index: number) {
@@ -859,8 +881,23 @@ function initListeners() {
     document.getElementById('clear-all-btn')?.addEventListener('click', clearAll);
     document.getElementById('add-segment-btn')?.addEventListener('click', addSegment);
     document.getElementById('delete-segment-btn')?.addEventListener('click', deleteSegment);
+    document.getElementById('close-editor-btn')?.addEventListener('click', () => {
+        state.activeSegmentId = null;
+        renderEditor();
+        renderLines();
+    });
     document.getElementById('add-color-btn')?.addEventListener('click', addColor);
+    document.getElementById('show-gradients-btn')?.addEventListener('click', () => {
+        document.getElementById('colors-view-default')?.classList.add('hidden');
+        document.getElementById('mobile-gradients-view')?.classList.remove('hidden');
+        renderMobileGradients();
+    });
+    document.getElementById('hide-gradients-btn')?.addEventListener('click', () => {
+        document.getElementById('colors-view-default')?.classList.remove('hidden');
+        document.getElementById('mobile-gradients-view')?.classList.add('hidden');
+    });
     document.getElementById('save-gradient-btn')?.addEventListener('click', saveCurrentGradient);
+    document.getElementById('save-gradient-btn-mobile')?.addEventListener('click', saveCurrentGradient);
     document.getElementById('import-gradient-btn')?.addEventListener('click', openGradientImportModal);
     document.getElementById('export-line-btn')?.addEventListener('click', exportLine);
     document.getElementById('export-segment-btn')?.addEventListener('click', exportSegment);
