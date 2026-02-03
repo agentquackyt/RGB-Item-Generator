@@ -13,8 +13,11 @@ See exactly how your text will look in real-time as you create it. The intuitive
 ### Save Gradient Presets
 Save your favorite gradient combinations and reuse them instantly across projects. Import gradient presets from popular tools like RGB Birdflop, or create your own custom collections to use later.
 
+### Mobile-Optimized Interface
+Design on the go with a purpose-built mobile experience. The interface automatically adapts to smaller screens, hiding the desktop sidebar in favor of a specialized "Saved Gradients" view accessible directly from the segment editor. Manage, save, and apply your custom gradients with a single tap, all within a streamlined mobile-first layout.
+
 ### Seamless Integration
-Export your creations in multiple formats: copy as MiniMessage text, save complete projects as JSON, or generate shareable URLs. 
+Export your creations in multiple formats: copy as MiniMessage text, save complete projects as JSON, or generate shareable URLs. Quickly load existing projects by dragging and dropping your `.json` files anywhere on the page.
 
 
 ## Getting Started
@@ -74,6 +77,7 @@ bun run build
 3. **Style Segments** - Apply colors, gradients, and formatting (bold, italic, underline, etc.)
 4. **Preview** - View real-time preview of your formatted text
 5. **Export** - Copy as MiniMessage, JSON, or share via URL
+6. **Mobile Support** - Access saved gradients and save new presets using the dedicated mobile buttons when editing on smaller screens.
 
 ### Styling Options
 
@@ -88,7 +92,7 @@ Each text segment supports:
 ### Project Management
 
 - **Save Project** - Export your entire project as JSON
-- **Load Project** - Import previously saved projects
+- **Load Project** - Import previously saved projects (Button or **Drag & Drop** any JSON project file)
 - **Copy JSON** - Copy the project JSON to clipboard
 - **Export URL** - Generate a shareable URL with encoded project data
 
