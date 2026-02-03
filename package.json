@@ -1,17 +1,14 @@
 {
   "name": "item-creator",
-  "private": true,
-  "scripts": {
-    "dev": "bun run --hot src/app.ts",
-    "build": "bun build ./src/app.ts --outdir ./dist"
-  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
-  "dependencies": {
-    "@birdflop/rgbirdflop": "^0.1.15"
+  "private": true,
+  "scripts": {
+    "dev": "bun run index.html",
+    "build": "bun build index.html --outdir ./docs"
   }
 }
